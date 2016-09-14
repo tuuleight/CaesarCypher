@@ -15,11 +15,11 @@ class CodeTest(unittest.TestCase):
         self.code_field = self.driver.find_element_by_name('code')
         self.code_field.clear()
 
-        self.code_field.send_keys('Whq nąfln mhvw grsudzgb xurfcb')
+        self.code_field.send_keys('Whq nąfLn mhvw grsudzgb xurfcb')
         self.code_field.submit()
 
         product = self.driver.find_element_by_tag_name('body')
-        self.assertEqual(product.text, 'Ten kącik jest doprawdy uroczy')
+        self.assertEqual(product.text, 'Ten kącIk jest doprawdy uroczy')
 
     @classmethod
     def tearDownClass(cls):

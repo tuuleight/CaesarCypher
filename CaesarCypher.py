@@ -34,11 +34,21 @@ class MainHandler(tornado.web.RequestHandler):
 
     @staticmethod
     def decrypted(code, n=3):
-        alph = string.ascii_uppercase + string.ascii_lowercase
-        decrypt = collections.deque(alph)
+        code_lower = code.lower()
+        alph_lower = string.ascii_lowercase
+        decrypt = collections.deque(alph_lower)
         decrypt.rotate(n)
         decrypt = ''.join(list(decrypt))
-        return code.translate({ord(x): y for (x, y) in zip(alph, decrypt)})
+        translated = code_lower.translate(
+            {ord(x): y for (x, y) in zip(alph_lower,
+                                         decrypt)})
+        for i in code:
+            if i.isupper():
+                index = code.index(i)
+                translated = translated[:index] + translated[index].upper() + \
+                             translated[(index + 1):]
+
+        return translated
 
 
 def main():
